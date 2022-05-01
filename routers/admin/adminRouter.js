@@ -31,7 +31,7 @@ const { requireSignin, verifyOTP } = require("../../common-middleware/index")
 
 
 
-router.post("/admin/signin",verifyOTP, signin);
+router.post("/admin/signin",/*verifyOTP,*/ signin);
 router.post("/admin/blockuser", requireSignin, blockuser); // block user
 router.post("/userInfo", userInfo);
 router.post("/getIncomeHistory", requireSignin, getIncomeHistory); // getIncome_History
