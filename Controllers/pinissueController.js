@@ -107,18 +107,19 @@ async function creacteTopup(req, res) {
                 .status(400)
                 .json({ message: "Insufficient Account Balance" });
             }
-          } else if (coin_ratio == 10) {
-            const coin_wallet_amount =  (coin_ratio / 100) * amount
-            const bep20_amount = (90 / 100) * amount;
-            if (user.bep20_wallet >= bep20_amount/*amount / percent_amount*/ && user.coin_wallet >= coin_wallet_amount/*amount / bep20_amount*/) {
+          } else if (coin_ratio == 50) {
+            if (user.bep20_wallet >= amount / 2 && user.coin_wallet >= amount / 2) {
+            // const coin_wallet_amount =  (coin_ratio / 100) * amount
+            // const bep20_amount = (50 / 100) * amount;
+            // if (user.bep20_wallet >= bep20_amount/*amount / percent_amount*/ && user.coin_wallet >= coin_wallet_amount/*amount / bep20_amount*/) {
               await User.updateOne(
                 { member_id: user.member_id },
                 {
                   $set: {
                     investment: parseInt(user.investment) + parseInt(amount),
                     bep20_wallet:
-                      parseInt(user.bep20_wallet) - bep20_amount, // parseInt(amount / 2),
-                    coin_wallet: parseInt(user.coin_wallet) - coin_wallet_amount, // parseInt(amount / 2),
+                    parseInt(user.bep20_wallet) - parseInt(amount / 2),
+                    coin_wallet: parseInt(user.coin_wallet) - parseInt(amount / 2),
                     activation_date: new Date().toISOString(),
                     status: 1,
                   },
